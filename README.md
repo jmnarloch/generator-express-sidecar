@@ -3,7 +3,7 @@
 > [Yeoman](http://yeoman.io) [Express](http://expressjs.com) generator with additional [Spring Cloud Sidecar]() setup
 
 The Spring Cloud Sidecar works in two ways it allows your Node application to be discovered by other applications,
-perform health checks or configures Hystrix circut braker for fast failure. On other hands it let you access from
+perform health checks and configures Hystrix circut braker for fast failure. On other hands it let you access from
 inside the Express application Eureka for service discovery or for instance Cloud Config server for configuration.
 
 ## Getting Started
