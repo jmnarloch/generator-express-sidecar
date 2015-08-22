@@ -5,7 +5,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 
-describe('spring-cloud-sidecar:app', function () {
+describe('express-sidecar:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({ skipInstall: true })
@@ -33,7 +33,8 @@ describe('spring-cloud-sidecar:app', function () {
       'sidecar/build.gradle',
       'sidecar/gradlew',
       'sidecar/gradlew.bat',
-      '.gitignore'
+      '.gitignore',
+      '.npm_install'
     ]);
   });
 });

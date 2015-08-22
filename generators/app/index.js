@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var fs = require('fs');
 var mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
@@ -14,6 +15,13 @@ module.exports = yeoman.generators.Base.extend({
 
     this.copy = function (dir, src, dest) {
       this.fs.copy(
+        this.templatePath(dir + src),
+        this.destinationPath(dir + dest)
+      );
+    }.bind(this);
+
+    this.copySync = function (dir, src, dest) {
+      this.fs.copySync(
         this.templatePath(dir + src),
         this.destinationPath(dir + dest)
       );
@@ -67,8 +75,8 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('app/views/', '_error.jade', 'error.jade');
       this.copy('app/views/', '_index.jade', 'index.jade');
       this.copy('app/views/', '_layout.jade', 'layout.jade');
-      this.copy('app/', '_app.js', 'app.js');
       this.copy('app/', '_package.json', 'package.json');
+      this.copy('app/', '_app.js', 'app.js');
     },
 
     sidecar: function () {
@@ -84,10 +92,25 @@ module.exports = yeoman.generators.Base.extend({
 
     projectfiles: function () {
       this.copy('', 'gitignore', '.gitignore');
+      this.copy('', 'npm_install', '.npm_install');
     }
   },
 
   install: function () {
-    // this.installDependencies();
+    if (this.options.skipInstall) {
+      return this;
+    }
+
+    this.log('Running npm install');
+    fs.chmodSync(this.destinationPath('.npm_install'), '0744');
+    this.spawnCommandSync('./.npm_install', []);
+
+    this.log('Running gradle build');
+
+    var command = './sidecar/gradlew';
+    if(/^win/.test(process.platform)) {
+      command = './sidecar/gradlew.bat';
+    }
+    this.spawnCommandSync(command, ['-p', 'sidecar', 'build']);
   }
 });
