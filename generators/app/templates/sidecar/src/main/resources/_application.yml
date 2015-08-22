@@ -1,0 +1,11 @@
+server:
+  port: ${PORT:5678}
+
+spring:
+  application:
+      name: <%= applicationName %>
+
+sidecar:
+  port: 3000
+  home-page-uri: http://localhost:${sidecar.port}/
+  health-uri: http://localhost:${sidecar.port}/health
