@@ -75,6 +75,9 @@ You can access the sidecar application on [http://localhost:5678](http://localho
 
 ![Sidecar](https://github.com/jmnarloch/generator-express-sidecar/raw/master/sidecar.png "Siedcar")
 
+The application itself runs on [http://localhost:3000](http://localhost:3000) and this is the address that will be 
+registered within Eureka.
+
 ## Configuration
 
 
