@@ -2,9 +2,10 @@
 
 > [Yeoman](http://yeoman.io) [Express](http://expressjs.com) generator with additional [Spring Cloud Sidecar]() setup
 
-The Spring Cloud Sidecar works in two ways it allows your Node application to be discovered by other applications,
-perform health checks and configures Hystrix circut braker for fast failure. On other hands it let you access from
-inside the Express application Eureka for service discovery or for instance Cloud Config server for configuration.
+The Spring Cloud Sidecar works in two ways it allows your Node application to be discovered by other applications 
+through Eureka or Consul, perform health checks etc. On other hand it let you access from inside the Node 
+application Eureka for service discovery and address lookup or for instance read the Cloud Config server for
+configuration.
 
 ## Getting Started
 
@@ -21,6 +22,26 @@ yo express-sidecar
 ```
 
 ## Options
+
+### Application name
+
+The name of the application to be registered in the discovery service.
+
+### Discovery service
+
+The discovery service to use, either Netflix Eureka or Consul.
+
+### Eureka serviceUrl
+
+Allows to specify the serviceUrl to Eureka
+
+### Consul host
+
+The Consul host.
+
+### Consul port
+
+The Consul port.
 
 ## Project structure
 
