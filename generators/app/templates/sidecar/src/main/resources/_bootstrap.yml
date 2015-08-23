@@ -1,4 +1,12 @@
+<% if(discoveryService == 'eureka') { %>
 eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVICE_URL:<%= eurekaServiceUrl %>}
+<% } else if(discoveryService == 'consul') { %>
+spring:
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:<%= consulHost %>}
+      port: ${CONSUL_PORT:<%= consulPort %>}
+<% } %>

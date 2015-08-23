@@ -9,7 +9,11 @@ describe('express-sidecar:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/app'))
       .withOptions({ skipInstall: true })
-      .withPrompts({ someOption: true })
+      .withPrompts({
+        applicationName: 'express-sidecar',
+        discoveryService: 'eureka',
+        eurekaServiceUrl: 'http://localhost:8761/eureka/'
+      })
       .on('end', done);
   });
 

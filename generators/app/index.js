@@ -42,13 +42,47 @@ module.exports = yeoman.generators.Base.extend({
     var prompts = [{
       type: 'input',
       name: 'applicationName',
-      message: 'Your application name (to be registered within Eureka)',
+      message: 'Your application name (to be registered within discovery service)',
       default: 'express-sidecar'
     }, {
+      type: 'list',
+      name: 'discoveryService',
+      message: 'Choice your discovery service',
+      choices: [
+        {
+          name: 'Eureka',
+          value: 'eureka'
+        },
+        {
+          name: 'Consul (Experimental)',
+          value: 'consul'
+        }
+      ],
+      default: 0
+    }, {
+      when: function (response) {
+        return response.discoveryService == 'eureka';
+      },
       type: 'input',
       name: 'eurekaServiceUrl',
       message: 'The Eureka url',
       default: 'http://localhost:8761/eureka/'
+    }, {
+      when: function (response) {
+        return response.discoveryService == 'consul';
+      },
+      type: 'input',
+      name: 'consulHost',
+      message: 'The Consul host',
+      default: 'localhost'
+    }, {
+      when: function (response) {
+        return response.discoveryService == 'consul';
+      },
+      type: 'input',
+      name: 'consulPort',
+      message: 'The Consul port',
+      default: 8500
     }];
 
     this.prompt(prompts, function (props) {
@@ -60,7 +94,7 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
 
-    appDirs: function() {
+    appDirs: function () {
       mkdirp('app/public/images/');
       mkdirp('app/public/javascripts/');
       mkdirp('app/public/stylesheets/');
@@ -85,7 +119,7 @@ module.exports = yeoman.generators.Base.extend({
       this.copy('sidecar/src/main/java/org/springcloud/sidecar/', '_SidecarApplication.java', 'SidecarApplication.java');
       this.template('sidecar/src/main/resources/', '_application.yml', 'application.yml');
       this.template('sidecar/src/main/resources/', '_bootstrap.yml', 'bootstrap.yml');
-      this.copy('sidecar/', '_build.gradle', 'build.gradle');
+      this.template('sidecar/', '_build.gradle', 'build.gradle');
       this.copy('sidecar/', '_gradlew', 'gradlew');
       this.copy('sidecar/', '_gradlew.bat', 'gradlew.bat');
     },
@@ -108,7 +142,7 @@ module.exports = yeoman.generators.Base.extend({
     this.log('Running gradle build');
 
     var command = './sidecar/gradlew';
-    if(/^win/.test(process.platform)) {
+    if (/^win/.test(process.platform)) {
       command = './sidecar/gradlew.bat';
     }
     this.spawnCommandSync(command, ['-p', 'sidecar', 'build']);

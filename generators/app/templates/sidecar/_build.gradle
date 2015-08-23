@@ -26,13 +26,22 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    <% if(discoveryService == 'consul') { %>
+    maven {
+      url 'http://repo.spring.io/libs-milestone-local/'
+    }
+    <% } %>
 }
 
 dependencies {
+    <% if(discoveryService == 'eureka') { %>
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
-    compile("org.springframework.cloud:spring-cloud-starter-hystrix")
-    compile("org.springframework.cloud:spring-cloud-starter-zuul")
-    compile("org.springframework.cloud:spring-cloud-netflix-sidecar")
+    <% } else if(discoveryService == 'consul') { %>
+    compile("org.springframework.cloud:spring-cloud-consul-discovery:1.0.0.M1")
+    <% } %>
+    compile("org.springframework.cloud:spring-cloud-netflix-sidecar") <% if(discoveryService == 'consul') { %> {
+        exclude group: 'com.netflix.eureka'
+    } <% } %>
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
