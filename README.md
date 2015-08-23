@@ -74,14 +74,13 @@ First start the Express application:
 ```bash
 $ cd app
 
-$ bin/www
+$ DEBUG=app:* bin/www
 
 ```
 
 Next run Spring Cloud Sidecar
 
 ```bash
-
 $ cd sidecar
 
 $ ./gradlew bootRun
