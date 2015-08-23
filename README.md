@@ -1,4 +1,4 @@
-# generator-express-sidecar [![Build Status](https://secure.travis-ci.org/jmnarloch/generator-express-sidecar.png?branch=master)](https://travis-ci.org/jmnarloch/generator-express-sidecar)
+# generator-express-sidecar [![Build Status](https://secure.travis-ci.org/jmnarloch/generator-express-sidecar.png?branch=master)](https://travis-ci.org/jmnarloch/generator-express-sidecar) [![npm version](https://badge.fury.io/js/generator-express-sidecar.svg)](http://badge.fury.io/js/generator-express-sidecar) [![Dependency Status](https://david-dm.org/jmnarloch/generator-express-sidecar.svg)](https://david-dm.org/jmnarloch/generator-express-sidecar) [![devDependency Status](https://david-dm.org/jmnarloch/generator-express-sidecar/dev-status.svg)](https://david-dm.org/jmnarloch/generator-express-sidecar#info=devDependencies)
 
 > [Yeoman](http://yeoman.io) [Express](http://expressjs.com) generator with additional [Spring Cloud Sidecar]() setup
 
